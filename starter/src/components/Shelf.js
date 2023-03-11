@@ -1,13 +1,17 @@
 import Book from "./Book";
 
-const Shelf = ()=> {
+const Shelf = ( {shelf, books} )=> {
 
     return (
         <div className="bookshelf">
-                <h2 className="bookshelf-title">Currently Reading</h2>
+                <h2 className="bookshelf-title">{shelf.category}</h2>
                 <div className="bookshelf-books">
                     <ol className="books-grid">
-                        <Book></Book>
+                    {
+                        books.map((book) => (
+                        <li key={book.name}><Book book={book}></Book></li>
+                        ))
+                    }
                     </ol>
                 </div>
         </div>

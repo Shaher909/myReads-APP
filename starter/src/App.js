@@ -1,17 +1,34 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MyLibrary from "./components/MyLibrary";
 import SearchBooks from "./components/SearchBooks";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import * as BooksAPI from "./BooksAPI.js"
 
 function App() {
-  let navigate = useNavigate();
-  const [showSearchPage, setShowSearchpage] = useState(false);
+
+  const [shelves, setShelves] = useState (
+    [
+      { id: 1, category: "Currently Reading"},
+      { id: 2, category: "Want to Read"},
+      { id: 3, category: "Read"}
+    ]
+  );
+
+  const [books, setBooks] = useState ([]);
+
+  useEffect(() => {
+    const getBooks = async() => {
+      const res = await BooksAPI.getAll();
+      setBooks(res);
+    }
+    getBooks();
+  }, [])
 
   return (
     <Routes>
-        <Route exact path="/" element={<MyLibrary></MyLibrary>} />
-        <Route exact path="/search" element={<SearchBooks></SearchBooks>} />
+        <Route exact path="/" element={<MyLibrary shelves={shelves} books={books} ></MyLibrary>} />
+        <Route exact path="/search" element={<SearchBooks books={books}></SearchBooks>} />
     </Routes>
   );
 }
