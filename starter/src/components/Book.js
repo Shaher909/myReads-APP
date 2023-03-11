@@ -1,4 +1,4 @@
-const Book = ( {book} ) => {
+const Book = ( {book, shelves} ) => {
 
     return (
         <li>
@@ -14,15 +14,15 @@ const Book = ( {book} ) => {
                     }}
                     ></div>
                     <div className="book-shelf-changer">
-                    <select>
+                    <select value={book.shelf}>
                         <option value="none" disabled>
                         Move to...
                         </option>
-                        <option value="currentlyReading">
-                        Currently Reading
-                        </option>
-                        <option value="wantToRead">Want to Read</option>
-                        <option value="read">Read</option>
+                        {
+                            shelves.map((shelf) => (
+                                <option value={shelf.category}>{shelf.category}</option>
+                            ))
+                        }
                         <option value="none">None</option>
                     </select>
                     </div>

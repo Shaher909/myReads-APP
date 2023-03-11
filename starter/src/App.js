@@ -9,9 +9,9 @@ function App() {
 
   const [shelves, setShelves] = useState (
     [
-      { id: 1, category: "Currently Reading"},
-      { id: 2, category: "Want to Read"},
-      { id: 3, category: "Read"}
+      { id: 1, category: "currentlyReading"},
+      { id: 2, category: "wantToRead"},
+      { id: 3, category: "read"}
     ]
   );
 

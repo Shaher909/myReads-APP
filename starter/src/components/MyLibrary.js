@@ -13,7 +13,7 @@ const MyLibrary = ( {shelves, books} ) => {
                 {
                     shelves.map((shelf) => (
                         <div className="list-books-content" key={shelf.id}>
-                            <Shelf shelf={shelf} books={books}></Shelf>
+                            <Shelf shelf={shelf} books={books} shelves={shelves}></Shelf>
                         </div>
                     ))
                 }
