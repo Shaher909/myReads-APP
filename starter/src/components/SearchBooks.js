@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import Book from "./Book";
 
-const SearchBooks = ( {books} ) => {
+const SearchBooks = ( {books, shelves} ) => {
 
   const [query, setQuery] = useState("");
 
@@ -40,7 +40,7 @@ const SearchBooks = ( {books} ) => {
             <ol className="books-grid">
               {
                 showingBooks.map((book) => (
-                  <li key={book.name}><Book book={book}></Book></li>
+                  <li key={book.name}><Book book={book} shelves={shelves}></Book></li>
                 ))
               }
             </ol>

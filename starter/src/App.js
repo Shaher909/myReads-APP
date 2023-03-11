@@ -28,7 +28,7 @@ function App() {
   return (
     <Routes>
         <Route exact path="/" element={<MyLibrary shelves={shelves} books={books} ></MyLibrary>} />
-        <Route exact path="/search" element={<SearchBooks books={books}></SearchBooks>} />
+        <Route exact path="/search" element={<SearchBooks books={books} shelves={shelves}></SearchBooks>} />
     </Routes>
   );
 }
