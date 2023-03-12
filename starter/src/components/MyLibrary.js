@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 const MyLibrary = ( {shelves, books, updateBooks} ) => {
 
-    console.log(books);
     return (
         <div className="app">
             <div className="list-books">
@@ -13,7 +12,7 @@ const MyLibrary = ( {shelves, books, updateBooks} ) => {
 
                 {
                     shelves.map((shelf) => (
-                        <div className="list-books-content">
+                        <div className="list-books-content" key={shelf.category}>
                             <Shelf key={shelf.category} shelf={shelf} books={books} shelves={shelves} updateBooks={updateBooks}></Shelf>
                         </div>
                     ))

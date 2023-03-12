@@ -1,9 +1,13 @@
 import { useState } from "react";
 import * as BooksAPI from "../BooksAPI";
 
-const Book = ( {book, shelves, updateBooks} ) => {
+const Book = ( {book, shelves , updateBooks} ) => {
 
     const [shelf, setShelf] = useState(book.shelf);
+    const [showDetails, setShowDetails] = useState(false);
+    const toggleDetails = () => {
+        setShowDetails(!showDetails);
+    };
 
     const handleChange = async (event) => {
         const newShelf = event.target.value;
@@ -32,7 +36,7 @@ const Book = ( {book, shelves, updateBooks} ) => {
                         </option>
                         {
                             shelves.map((shelf) => (
-                                <option key={shelf.category} value={shelf.category}>{shelf.category}</option>
+                                <option key={shelf.category} value={shelf.category}>{shelf.displayName}</option>
                             ))
                         }
                         <option value="none">None</option>
@@ -41,6 +45,17 @@ const Book = ( {book, shelves, updateBooks} ) => {
                 </div>
                 <div className="book-title">{book.title}</div>
                 <div className="book-authors">{book.authors}</div>
+                <hr></hr>
+                {showDetails && (
+                    <>
+                    <div className="book-title">{book.publisher ? book.publisher : ''}</div>
+                    <hr></hr>
+                    <div className="book-title">{book.subtitle ? book.subtitle : ''}</div>
+                    <hr></hr>
+                    <div className="book-authors">{book.description ? book.description : ''}</div>   
+                    </>
+                )}
+                <button onClick={toggleDetails}>Hide / Show more details</button>
             </div>
     )
 

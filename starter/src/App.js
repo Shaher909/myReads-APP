@@ -9,9 +9,9 @@ function App() {
 
   const shelves =  
     [
-      { id: 1, category: "currentlyReading"},
-      { id: 2, category: "wantToRead"},
-      { id: 3, category: "read"}
+      { id: 1, category: "currentlyReading", displayName: "Currently Reading"},
+      { id: 2, category: "wantToRead", displayName: "Want to Read"},
+      { id: 3, category: "read", displayName: "Read"}
     ];
 
   const [books, setBooks] = useState ([]);
@@ -28,7 +28,7 @@ function App() {
   return (
     <Routes>
         <Route exact path="/" element={<MyLibrary shelves={shelves} books={books} updateBooks={updateBooks} ></MyLibrary>} />
-        <Route exact path="/search" element={<SearchBooks books={books} shelves={shelves} updateBooks={updateBooks} ></SearchBooks>} />
+        <Route exact path="/search" element={<SearchBooks shelves={shelves} updateBooks={updateBooks} books={books} ></SearchBooks>} />
     </Routes>
   );
 }

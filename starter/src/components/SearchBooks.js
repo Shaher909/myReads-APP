@@ -15,14 +15,12 @@ const SearchBooks = ( {books, shelves, updateBooks} ) => {
     useEffect(() => {
       if (query !== "") {
       const searchBooks = async() => {
-        console.log(query);
         const res = await BooksAPI.search(query, 20);
         if(Array.isArray(res)) {
           setResults(res);
         } else {
           setResults([]);
         }
-        console.log(res);
       }
       searchBooks();
     }
@@ -35,6 +33,19 @@ const SearchBooks = ( {books, shelves, updateBooks} ) => {
             || (b.authors && b.authors.some(author => author.toLowerCase().includes(query.toLowerCase())))
             || (b.industryIdentifiers && b.industryIdentifiers.some(industryIdentifier => industryIdentifier.identifier.toLowerCase().includes(query.toLowerCase())))
             );
+
+
+        // Find the matching book in the books array and update its shelf property
+        let foundBooks = showingResults.map((book) => {
+          let foundBook = books.find((b) => b.id === book.id);
+          if (foundBook) {
+            book.shelf = foundBook.shelf;
+          } else {
+            book.shelf = "none";
+          }
+          return book;
+        });
+
 
     return (
         <div className="search-books">
@@ -52,8 +63,9 @@ const SearchBooks = ( {books, shelves, updateBooks} ) => {
           <div className="search-books-results">
             <ol className="books-grid">
               {
-                showingResults.map((book) => (
-                  <li key={book.name}><Book book={book} shelves={shelves} updateBooks={updateBooks}></Book></li>
+                foundBooks.map((found_book) => (
+                    // Render the book component with the shelf value}
+                  <li key={found_book.id}><Book book={found_book} shelves={shelves} updateBooks={updateBooks}></Book></li>
                 ))
               }
             </ol>
