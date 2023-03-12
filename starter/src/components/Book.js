@@ -1,4 +1,16 @@
-const Book = ( {book, shelves} ) => {
+import { useState } from "react";
+import * as BooksAPI from "../BooksAPI";
+
+const Book = ( {book, shelves, updateBooks} ) => {
+
+    const [shelf, setShelf] = useState(book.shelf);
+
+    const handleChange = async (event) => {
+        const newShelf = event.target.value;
+        const response = await BooksAPI.update(book, newShelf);
+        setShelf(newShelf);
+        updateBooks();
+      };
 
     return (
         <li>
@@ -14,7 +26,7 @@ const Book = ( {book, shelves} ) => {
                     }}
                     ></div>
                     <div className="book-shelf-changer">
-                    <select value={book.shelf}>
+                    <select value={shelf} onChange={handleChange}>
                         <option value="none" disabled>
                         Move to...
                         </option>

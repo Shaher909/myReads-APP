@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Book from "./Book";
+import * as BooksAPI from "../BooksAPI";
 
-const SearchBooks = ( {books, shelves} ) => {
+const SearchBooks = ( {books, shelves, updateBooks} ) => {
 
   const [query, setQuery] = useState("");
 
@@ -10,9 +11,17 @@ const SearchBooks = ( {books, shelves} ) => {
         setQuery(query);
     }
 
-    const clearQuery = () =>{
-        updateQuery("")
+    useEffect(() => {
+      if (query !== "") {
+      const searchBooks = async() => {
+        const res = await BooksAPI.search(query, 20);
+        console.log(query);
+        console.log(res);
+        console.log(books);
+      }
+      searchBooks();
     }
+    }, [query])
 
     const showingBooks = 
         query === "" 
@@ -34,13 +43,12 @@ const SearchBooks = ( {books, shelves} ) => {
                 onChange={(event)=> updateQuery(event.target.value)}
               />
             </div>
-            { console.log(books) }
           </div>
           <div className="search-books-results">
             <ol className="books-grid">
               {
                 showingBooks.map((book) => (
-                  <li key={book.name}><Book book={book} shelves={shelves}></Book></li>
+                  <li key={book.name}><Book book={book} shelves={shelves} updateBooks={updateBooks}></Book></li>
                 ))
               }
             </ol>

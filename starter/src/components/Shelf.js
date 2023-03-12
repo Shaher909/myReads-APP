@@ -1,6 +1,6 @@
 import Book from "./Book";
 
-const Shelf = ( {shelf, books, shelves} )=> {
+const Shelf = ( {shelf, books, shelves, updateBooks} )=> {
 
     return (
         <div className="bookshelf">
@@ -10,7 +10,7 @@ const Shelf = ( {shelf, books, shelves} )=> {
                     {
                         books.map((book) => (
                         book.shelf === shelf.category ?
-                        <li key={book.name}><Book book={book} shelves={shelves}></Book></li>
+                        <li key={book.name}><Book book={book} shelves={shelves} updateBooks={updateBooks} ></Book></li>
                         :
                         null
                         ))

@@ -1,7 +1,7 @@
 import Shelf from "./Shelf";
 import { Link } from "react-router-dom";
 
-const MyLibrary = ( {shelves, books} ) => {
+const MyLibrary = ( {shelves, books, updateBooks} ) => {
 
     return (
         <div className="app">
@@ -13,7 +13,7 @@ const MyLibrary = ( {shelves, books} ) => {
                 {
                     shelves.map((shelf) => (
                         <div className="list-books-content" key={shelf.id}>
-                            <Shelf shelf={shelf} books={books} shelves={shelves}></Shelf>
+                            <Shelf shelf={shelf} books={books} shelves={shelves} updateBooks={updateBooks}></Shelf>
                         </div>
                     ))
                 }
