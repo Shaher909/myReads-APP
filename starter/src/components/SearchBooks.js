@@ -5,6 +5,7 @@ import * as BooksAPI from "../BooksAPI";
 
 const SearchBooks = ( {books, shelves, updateBooks} ) => {
 
+  const [results, setResults] = useState([]);
   const [query, setQuery] = useState("");
 
     const updateQuery = (query) =>{
@@ -14,21 +15,25 @@ const SearchBooks = ( {books, shelves, updateBooks} ) => {
     useEffect(() => {
       if (query !== "") {
       const searchBooks = async() => {
-        const res = await BooksAPI.search(query, 20);
         console.log(query);
+        const res = await BooksAPI.search(query, 20);
+        if(Array.isArray(res)) {
+          setResults(res);
+        } else {
+          setResults([]);
+        }
         console.log(res);
-        console.log(books);
       }
       searchBooks();
     }
     }, [query])
 
-    const showingBooks = 
+    const showingResults = 
         query === "" 
             ? []
-            : books.filter((b) => b.title.toLowerCase().includes(query.toLowerCase()) 
-            || b.authors.some(author => author.toLowerCase().includes(query.toLowerCase()))
-            || b.industryIdentifiers.some(industryIdentifier => industryIdentifier.identifier.toLowerCase().includes(query.toLowerCase()))
+            : results.filter((b) => b.title.toLowerCase().includes(query.toLowerCase()) 
+            || (b.authors && b.authors.some(author => author.toLowerCase().includes(query.toLowerCase())))
+            || (b.industryIdentifiers && b.industryIdentifiers.some(industryIdentifier => industryIdentifier.identifier.toLowerCase().includes(query.toLowerCase())))
             );
 
     return (
@@ -47,7 +52,7 @@ const SearchBooks = ( {books, shelves, updateBooks} ) => {
           <div className="search-books-results">
             <ol className="books-grid">
               {
-                showingBooks.map((book) => (
+                showingResults.map((book) => (
                   <li key={book.name}><Book book={book} shelves={shelves} updateBooks={updateBooks}></Book></li>
                 ))
               }

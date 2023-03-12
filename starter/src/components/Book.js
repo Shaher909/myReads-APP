@@ -13,7 +13,6 @@ const Book = ( {book, shelves, updateBooks} ) => {
       };
 
     return (
-        <li>
             <div className="book">
                 <div className="book-top">
                     <div
@@ -22,7 +21,8 @@ const Book = ( {book, shelves, updateBooks} ) => {
                         width: 128,
                         height: 193,
                         backgroundImage:
-                        `url(${book.imageLinks.smallThumbnail})`,
+                        //`url(${book.imageLinks.thumbnail ? book.imageLinks.thumbnail : " "})`,
+                        `url(${book.imageLinks && book.imageLinks.thumbnail ? book.imageLinks.thumbnail : ""})`,
                     }}
                     ></div>
                     <div className="book-shelf-changer">
@@ -32,7 +32,7 @@ const Book = ( {book, shelves, updateBooks} ) => {
                         </option>
                         {
                             shelves.map((shelf) => (
-                                <option value={shelf.category}>{shelf.category}</option>
+                                <option key={shelf.category} value={shelf.category}>{shelf.category}</option>
                             ))
                         }
                         <option value="none">None</option>
@@ -42,8 +42,6 @@ const Book = ( {book, shelves, updateBooks} ) => {
                 <div className="book-title">{book.title}</div>
                 <div className="book-authors">{book.authors}</div>
             </div>
-        </li>
-        
     )
 
 }
