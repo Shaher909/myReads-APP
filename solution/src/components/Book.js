@@ -43,8 +43,8 @@ const Book = ( {book, shelves , updateBooks} ) => {
                     </select>
                     </div>
                 </div>
-                <div className="book-title">{book.title}</div>
-                <div className="book-authors">{book.authors}</div>
+                <div className="book-title">{book.title ? book.title: ''}</div>
+                <div className="book-authors">{book.authors ? book.authors.join(', '): ''}</div>
                 <div className="book-publisher">{book.publisher ? book.publisher : ''}</div>
                 <hr></hr>
                 {showDetails && (
