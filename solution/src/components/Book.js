@@ -39,7 +39,7 @@ const Book = ( {book, shelves , updateBooks} ) => {
                                 <option key={shelf.category} value={shelf.category}>{shelf.displayName}</option>
                             ))
                         }
-                        <option value="none">None</option>
+                        <option value="no_category" style={{ display: shelf !== 'none' ? 'block' : 'none' }}>None</option>
                     </select>
                     </div>
                 </div>
